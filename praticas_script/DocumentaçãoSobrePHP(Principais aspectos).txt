@@ -1,0 +1,584 @@
+O php(acronimo para Hypertext, e especificamente adequada
+ Preprocessor) é uma linguagem de programação muito utilizada,
+adequada para o desenvolvimento web e que pode ser embutida dento do HTML
+
+EXEMPLO:
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Exemplo</title>
+</head>
+<body>
+
+<?php
+            echo "Olá, eu sou um script PHP!";
+        ?>
+
+</body>
+</html>
+
+
+
+O php esta ligado ao html
+
+******** O que distingue o PHP de algo como o JavaScript no lado do cliente 
+é que o código é executado no servidor, gerando o HTML que é então 
+enviado para o navegador. ********
+
+Pode-se inclusive configurar seu servidor web para processar todos
+os seus arquivos HTML com o PHP, e então não há como os usuários dizerem o que 
+se tem na manga
+
+
+********O PHP é focado em scripts no lado do servidor************
+
+
+
+
+<?php ?>-super tag PHP
+
+<?  ?> - short open tag
+
+<%   %> - ASP tag
+
+<?php echo "algo" ?> - Só um comando dentro da super tag,pode se simplificar como
+<?= "algo" ?> - que seria uma short tag php
+
+php - faz interpolação
+
+
+********************Uma pagina com PHP********************
+
+
+<html>
+<head>
+<title>Teste PHP</title>
+</head>
+<body>
+<?php echo "<p>Olá Mundo</p>"; ?>
+</body>
+</html>
+
+
+Usando meu navegador para acessar meu servidor , ele gerara esse HTML:
+
+<html>
+ <head>
+  <title>Teste PHP</title>
+ </head>
+ <body>
+ <p>Olá Mundo</p>
+ </body>
+</html>
+
+
+Checando o valor da string agente que o navegador envia como parte da requisição
+HTTP, esta informação é armazenada em uma variavel. Váriaveis sempre começam com um simbolo
+de cifrão no PHP
+
+$_SERVER['HTTP_USER_AGENT']
+
+$_SERVER é uma variavel especial reservada do PHP que contem todas as 
+informações sobre o servidor web , essa variavel é uma superglobal
+
+SUPERGLOBAL--Variaveis pré definidas que estão disponivel em todos os escopos para todo
+o script
+
+
+VARIÁVEIS DE FONTES EXTERNAS
+
+Formulários HTML( GET e POST )
+
+-Quando um formulario é submetido para um script PHP, a  informação deste
+formulario estará automaticamente disponivel ao script
+
+EXEMPLO #1 Fomulário HTML simples
+
+<form action="foo.php" method="post">
+    Nome:  <input type="text" name="username" /><br />
+    Email: <input type="text" name="email" /><br />
+    <input type="submit" name="submit" value="Me aperte!" />
+</form> 
+
+Existem duas maneiras de acessar dados do formulario PHP 5.4.0
+
+<?php
+echo $_POST['username'];
+echo $_REQUEST['username'];
+?>
+
+Nota:
+
+Pontos e espaços em nomes de variáveis são convertidos para sublinhados.
+ Por exemplo <input name="a.b" /> se tornará $_REQUEST["a_b"].
+
+O PHP também entende arrays no contexto de variáveis de formulario.
+
+Pode-se, por exemplo, agrupar variáveis relacionadas,
+ ou utilizar este recurso para obter valores de um input select múltiplo. 
+Por exemplo, iremos enviar o formulário abaixo para si mesmo, e depois de submetido, 
+mostra os dados:
+
+<?php
+if ($_POST) {
+    echo '<pre>';
+    echo htmlspecialchars(print_r($_POST, true));
+    echo '</pre>';
+}
+?>
+<form action="" method="post">
+Nome: <input type="text" name="personal[name]" /><br />
+Email: <input type="text" name="personal[email]" /><br />
+Cerveja: <br />
+<select multiple name="beer[]">
+<option value="antartica">Antartica</option>
+<option value="brahma">Brahma</option>
+<option value="skol">Skol</option>
+</select><br />
+<input type="submit" value="Enviar dados!" />
+</form>
+
+
+ 
+**********************TAGS PHP*******************************
+
+Quando o PHP INTERPRETA um arquivo ele procura pelas tag <?php e ?>, que dizem ao 
+PHP para iniciar ou parar a interpretação do código entre elas
+
+*Permite incluir PHP em varios documento pois tudo que esta fora das tags
+ o seu interpretador ignora
+
+
+**********************TIPOS PHP************************* 
+Cada expressão no PHP tem um dos seguintes tipos ou valores internos:
+
+-null
+-bool
+-int
+-float (número de ponto flutuante)
+-string
+-array
+-object
+-callable
+-resource
+
+O PHP não é uma linguagem com tipagem  dinamica, o que significa que por padrão não
+existe a necessidade de especificar o tipo de uma variavel, já que isso sera determinado
+em tempo de execução 
+
+*****Mas é possivel restringir estaticamente os tipos através do uso de declarações
+de tipo
+
+Nota: É possível forçar a reavaliação de uma expressão para um tipo específico através do uso de cast.
+ Uma variável pode ser modificada para um tipo através da função settype().
+
+****************************SISTEMA DE TIPO********************************
+O PHP usa um sistema de tipo nominal com uma forte relação de subtipagem
+comportamental. A relação de subtipagem é verificada em tempo de compilação 
+enquanto a verificação de tipos é verificada dinamicamente em tempo de execução
+
+TIPOS BÁSICOS
+
+Tipos integrados:
+tipo null
+Tipos escalares:
+tipo bool
+tipo int
+tipo float
+tipo string
+tipo array
+tipo object
+tipo resource
+tipo never
+tipo void
+Tipos de classes relativas: self, parent, e static
+Tipos literais:
+false
+true
+Tipos definidos pelo usuário (geralmente chamados de tipos de classe):
+Interfaces
+Classes
+Enumerações
+tipo callable
+
+
+TIPO NULL
+-Há apenas um valor do tipo null , a constante case-insensitive null
+<?php
+$var = NULL;
+?>
+
+TIPO BOOLEANOS
+
+O tipo bool tem apenas dois valores e é usado para expressar um valor de verdade,
+pode ser true ou false
+
+<?php
+$foo = True;
+?>
+
+CONVERTENDO PARA BOOLEANO
+Para converter explicitamente um valor em bool, 
+use a conversão bool. Geralmente isso não é necessário porque quando um 
+valor é usado em um contexto lógico ele será automaticamente interpretado
+como um valor do tipo bool. 
+
+
+Ao converter para bool, os seguintes valores são considerados false:
+
+o próprio booleano false
+o inteiro 0 (zero)
+os pontos flutuantes 0.0 e -0.0 (zero)
+uma string vazia "", e a string "0"
+um array sem elementos
+o tipo especial NULL (incluindo variáveis não definidas)
+Objetos internos que sobrecarregam seu comportamento de conversão para bool. Por exemplo: 
+Objetos SimpleXML criados a partir de elementos vazios sem atributos.
+Todos os outros valores são considerados true (incluindo resource e NAN).
+
+
+EXEMPLO:
+<?php
+var_dump((bool) "");        // bool(false)
+var_dump((bool) "0");       // bool(false)
+var_dump((bool) 1);         // bool(true)
+var_dump((bool) -2);        // bool(true)
+var_dump((bool) "foo");     // bool(true)
+var_dump((bool) 2.3e5);     // bool(true)
+var_dump((bool) array(12)); // bool(true)
+var_dump((bool) array());   // bool(false)
+var_dump((bool) "false");   // bool(true)
+?>
+
+TIPOS INTEIROS 
+
+-Um int é um numero do conjunto Z = {....,-2,-1,0,1,2,..}
+
+int pode ser especificado em notação decimal (base 10),hexadecimal(base 16),octal(base 8)
+ou binária(base 2)
+
+OPERADORES ARITIMÉTICOS 
+
++$a - identidade - Conversao de $a para int ou float conforme apropiado
+-$a - Negação - Oposto de a
+
+OPERADORES DE ATRIBUIÇÃO
+
+O operador básico de atribuição é "=", que significa que um operando da esquerda
+recebe o valor da expressão da direita(ou seja,"é definido para")
+
+O valor de uma expressão de atribuição é o valor atribuído. Ou seja, o valor de "$a = 3" é 3. 
+Isto permite que você faça alguns truques:
+
+<?php
+
+$a = ($b = 4) + 5; // $a é igual a 9 agora e $b foi definido como 4.
+
+?>
+
+
+ATRIBUIÇÃO POR REFERÊNCIA
+
+Atribuição por referencia também é possivel, utilizando-se a sintaxe "$var = &$outrvar,
+a atribuição por referencia significa que ambas as variaveis apontam para o mesmo
+dado , e nada é copiado.
+
+<?php
+$a = 3;
+$b = &$a; // $b é uma referência de $a
+
+print "$a\n"; // imprime 3
+print "$b\n"; // imprime 3
+
+$a = 4; // modificamos $a
+
+print "$a\n"; // imprime 4
+print "$b\n"; // imprime 4 também, pois $b é uma referência de $a, que foi
+              // modificada
+?>
+
+A partir do PHP 5 o operador new retorna ua referência automaticamente,
+de forma que a atribuição de um resultado new por referência gera um alerta E_DEPRECATED
+no PHP 5.3 e posteriores e um alerta E_STRICT nas versões anteriores
+
+<?php
+class C {}
+
+/* A linha seguinte gera a mensagem:
+ * Deprecated: Assigning the return value of new by reference is deprecated in...
+ */
+$o = &new C;
+?>
+
+OPERADORES BIT A BIT (BITWISE)
+
+Operadores bit-a-bit permitem a avaliação e modificação de bits especificos em um
+tipo inteiro
+
+
+$a & $b — E(AND)
+$a|$b —  OU(OR inclusivo)
+$a ^ $b — XOR(OR exclusivo)
+~$a — NÃO(NOT)
+$a <<  — Deslocamento a esquerda 
+$b
+
+$a <<  — Deslocamento a direita 
+$b
+
+
+OPERADORES DE COMPARAÇÃO
+
+$a == $b igual - Verdadeiro (true) se $a é igual a $b
+$a === $b identico - Verdadeiro(true) se $a é igual a $b e sao do mesmo tipo
+$a != $b Diferente - Verdadeiro se $a não é igual a $b
+$a <> $b Diferente - Verdadeiro se $a não é igual a $b
+$a !== $b Não identico - Verdadeiro se $a não é igual a $b e eles nao sao do mesmo tipo
+$a <=> $b Spaceship(nave espacial) - Um integer menor que, igual a ou maior que zero quando $a é, respectivamente, menor que, igual a ou maior que $b. Disponível a partir do PHP 7.
+
+OPERADORES DE CONTROLE DE ERRO
+
+O PHP suporta um operador de controle de erro: o sinal 'arroba'
+(@) 
+
+
+Se o recurso track_errors estiver habilitado, qualquer mensagem de erro gerada pela expressão será gravada na variável $php_errormsg. Esta variável será sobrescrita em cada erro, assim verifique-a constantemente se você quiser usá-la.
+
+<?php
+/* Erro de arquivo intencional */
+$my_file = @file ('arquivo_nao_existente') or
+    die ("Falha abrindo arquivo: '$php_errormsg'");
+
+// Isto funciona para qualquer expressão, não apenas para funções:
+$value = @$cache[$key];
+// você não receberá nenhum aviso se a chave $key não existir.
+
+?>
+
+
+OPERADORES DE INCREMENTO/DECREMENTO
+
+O PHP suporta operadores de pré e pós-incremento e decremento no estilo C
+
+Nota: Os operadores incremento/decremento afetam apenas números e strings. Arrays, objetos e recursos não são afetados. Decrementar null não gera efeitos, mas incrementar resulta em 1.
+
+++$a Pré-incremento - Incrmenta $a em um, e entao retorna $a
+
+$a++ Pós incrmento - Retorna $a, e então incrementa $a em um
+
+--$a Pré-incremento - Decrementa $a em um, e então retorna $a
+
+$a-- Pós-decremento - Retorna $a, e então decrementa $a em um
+
+EXPRESSOES
+
+Expressoes são blocos de construçao mais importante no PHP , são definidos como
+tudo que tem valor
+
+
+A forma mais basica de declarar uma expressao
+$a=4
+
+
+---------------------------------------------------------------------------------------------
+ESTRUTURAS DE CONTROLE IF/ELSE
+
+<?php
+if ($a > $b) {
+    echo "a é maior que b";
+} elseif ($a == $b) {
+    echo "a é igual a b";
+} else {
+    echo "a é menor que b";
+}
+?>
+
+Pode haver vários elseifs dentro da mesma declaração if. A primeira expressão elseif (se houver) que retornar true será executada. No PHP, pode-se escrever 'else if' (em duas palavras), e o comportamento será idêntico ao do 'elseif' (em uma única palavra). O significado sintático é um pouco diferente (se você está familiarizado com C, o comportamento é o mesmo), mas, no fundo, ambos terão exatamente o mesmo comportamento.
+
+O elseif só é executado se o if precedente ou qualquer elseif for avaliado como false, e o elseif corrente for avaliado como true.
+
+Nota: Note que o elseif e else if só serão considerados exatamente iguais se usados com chaves como no exemplo abaixo. Ao utilizar os dois pontos (:) para definir as condições de if/elseif, não deve-se separar else if em duas palavras, ou o PHP falhará com um erro de interpretação.
+
+
+<?php
+
+/* Método Incorreto: */
+if ($a > $b):
+    echo $a." é maior que ".$b;
+else if ($a == $b): // Não irá compilar.
+    echo "A linha acima causa um erro de análise.";
+endif;
+
+
+/* Método Correto: */
+if ($a > $b):
+    echo $a." é maior que ".$b;
+elseif ($a == $b): // Note a combinação das palavras.
+    echo $a." é igual a ".$b;
+else:
+    echo $a." não é maior nem igual a ".$b;
+endif;
+
+?>
+
+O PHP oferece uma sintaxe alternativa para algumas estruturas de controle; a saber, if, while, for, foreach, e switch. Em cada caso, basicamente a sintaxe alternativa é trocar a chave de abertura por dois pontos (:) e a chave de fechamento por endif;, endwhile;, endfor;, endforeach;, ou endswitch;, respectivamente.
+
+UM EXEMPLO
+<?php if ($a == 5): ?>
+A é igual a 5
+<?php endif; ?>
+
+----------REPETIÇAO
+WHILE
+
+<?php
+/* example 1 */
+
+$i = 1;
+while ($i <= 10) {
+    echo $i++;  /* the printed value would be
+                   $i before the increment
+                   (post-increment) */
+}
+
+/* example 2 */
+
+$i = 1;
+while ($i <= 10):
+    echo $i;
+    $i++;
+endwhile;
+?>
+
+
+DO-WHILE
+<?php
+do {
+    if ($i < 5) {
+        echo "i is not big enough";
+        break;
+    }
+    $i *= $factor;
+    if ($i < $minimum_limit) {
+        break;
+    }
+   echo "i is ok";
+
+    /* process i */
+
+} while (0);
+?>
+
+
+FOR
+Os laços for são os  mais  complexos no PHP,possui comportamento semelhante ao C
+for(expr1;expr2;expr3)
+	statement
+
+Alguns exemplos de laço for:
+
+
+
+<?php
+/* exemplo 1 */
+
+for ($i = 1; $i <= 10; $i++) {
+    echo $i;
+}
+
+/* exemplo 2 */
+
+for ($i = 1; ; $i++) {
+    if ($i > 10) {
+        break;
+    }
+    echo $i;
+}
+
+/* exemplo 3 */
+
+$i = 1;
+for (; ; ) {
+    if ($i > 10) {
+        break;
+    }
+    echo $i;
+    $i++;
+}
+
+/* exemplo 4 */
+
+for ($i = 1, $j = 0; $i <= 10; $j += $i, print $i, $i++);
+?>
+
+É comum para muitos , usuarios iterar em arrays, como no exemplo abaixo:
+
+<?php
+/*
+ * Esta é uma array com alguns dados que devem ser modificadoswant to modify
+ * durante a execuçao do loop for.
+ */
+$pessoas = array(
+    array('nome' => 'Lucas', 'salt' => 856412),
+    array('nome' => 'André', 'salt' => 215863)
+);
+
+for($i = 0; $i < count($pessoas); ++$i) {
+    $pessoas[$i]['salt'] = mt_rand(000000, 999999);
+}
+?>
+
+Pode-se otimizar o código da seguinte maneira:
+
+<?php
+$pessoas = array(
+    array('nome' => 'Lucas', 'salt' => 856412),
+    array('nome' => 'André', 'salt' => 215863)
+);
+
+for($i = 0, $tamanho = count($pessoas); $i < $tamanho; ++$i) {
+    $pessoas[$i]['salt'] = mt_rand(000000, 999999);
+}
+?>
+
+------------FOREACH
+
+O construtor foreach fornece uma maneira facil de iterar sobre os arrays.
+O foreach funciona somemte em arrays e objetos, e emitira um erro ao tentar usa-lo
+em uma variavel com um tipo de dados diferente ou de uma variavel não inicializada
+
+Possui duas sintaxes:
+foreach(iterable_expression as $valor)
+	statement
+foreach(iterable_expression as $chave => $valor)
+	statement
+
+Esse foreach percorre arrays (e ja demostra como declarar arrays)
+<?php
+$arr = array(1, 2, 3, 4);
+foreach ($arr as &$valor) {
+    $valor = $valor * 2;
+}
+// $arr agora é array(2, 4, 6, 8)
+
+// sem um unset($valor), $valor continuará como referência ao último item: $arr[3]
+
+foreach ($arr as $chave => $valor) {
+    // $arr[3] será atualizado com cada valor de $arr...
+    echo "{$chave} => {$valor} ";
+    print_r($arr);
+}
+// ...até que, o segundo e último valor é copiado para o último valor
+
+// saída:
+// 0 => 2 Array ( [0] => 2, [1] => 4, [2] => 6, [3] => 2 )
+// 1 => 4 Array ( [0] => 2, [1] => 4, [2] => 6, [3] => 4 )
+// 2 => 6 Array ( [0] => 2, [1] => 4, [2] => 6, [3] => 6 )
+// 3 => 6 Array ( [0] => 2, [1] => 4, [2] => 6, [3] => 6 )
+?>
+
+
+
+
+

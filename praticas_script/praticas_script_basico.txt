@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<form action="" method="post">
+    <p>Inserindo nome:</p><input type="text" placeholder="Nome" name="name" />
+    <input type="submit" value="Enviar dados!" />
+
+
+    </form>
+   <?php
+
+    
+
+    echo "<h1>Nomes impressos</h1>";
+    $Nome = htmlspecialchars($_POST['name']); 
+    echo $Nome;     
+    
+    echo "<h1>Lista de nomes!</h1>";
+    $nome = "Alisson";
+    echo"<p>Nome: $nome</p>";
+    $nome1 = "Alan";
+    echo "<p>Nome: $nome1</p>";
+    $nome2 = "Alex";
+    echo "<p>Nome: $nome2</p>";
+    
+    $nome3 = "Giovanna";
+    echo "<p>Nome: $nome3</p>";
+
+    
+    $nome2 = "Maria";
+    echo "<p>Nome: $nome2</p>";
+    date_default_timezone_set("America/Sao_Paulo");//GMT-3 time-zone padrão
+    
+
+    echo "Data atual: " . date("d/m/y");    
+    
+
+    echo "<p>A hora atual é</p>" , date("G:i:s ");
+
+    //contas aritimeticas
+    echo"<p>Calculos:</p>";
+    echo " soma: " . (1+2) . "\n";
+    echo " subtração: " . (4-3) . "\n";
+    echo " multiplicação: " . (2*3) . "\n";
+    echo " divisao: " . (8/2) . "\n";
+    echo var_dump(0 == "a") . "\n";
+
+
+        
+    function fat($a){
+        $fat = 1;
+        for ($i=1; $i <= $a ; $i++) { 
+            $fat = $fat * $i;
+        }
+        $retVal = ($fat%2==0) ? "par" : "impar" ;
+        return "O fatorial é:  . $fat  o fatorial eh: " . $retVal;
+    }
+
+    echo fat();
+
+   
+    
+
+    ?>
+    
+</body>
+</html>
